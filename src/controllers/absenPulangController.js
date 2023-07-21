@@ -25,11 +25,11 @@ const AbsenPulangController = {
 
             await postAbsenPulangModels(data)
             res.status(200).json({
-                message: "Berhasil Absen Masuk",
+                message: "Berhasil Absen Pulang",
             });
         } catch (error) {
             res.status(400).json({
-                message: "Gagal Absen Masuk",
+                message: "Gagal Absen Pulang",
                 error: error
             });
         }
@@ -40,12 +40,12 @@ const AbsenPulangController = {
             console.log(id)
             let result = await getAbsenPulangIdModels(id)
             res.status(200).json({
-                message: "Berhasil Mendapatkan Id User Absen Masuk",
+                message: "Berhasil Mendapatkan Id User Absen Pulang",
                 data: result.rows
             });
         } catch (error) {
             res.status(400).json({
-                message: "Gagal Mendapatkan user Absen Masuk",
+                message: "Gagal Mendapatkan user Absen Pulang",
                 error: error
             });
         }

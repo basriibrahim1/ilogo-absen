@@ -17,7 +17,6 @@ const AbsenMasukController = {
                 photo: imageUrl.secure_url, 
                 longitude: req.body.longitude, 
                 latitude: req.body.latitude, 
-                status: req.body.status
             }
 
             await postAbsenMasukModels(data)
@@ -34,7 +33,6 @@ const AbsenMasukController = {
     getAbsenMasukIdController: async(req, res) => {
         try {
             const id = req.params.id
-            console.log(id)
             let result = await getAbsenMasukIdModels(id)
             res.status(200).json({
                 message: "Berhasil Mendapatkan Id User Absen Masuk",

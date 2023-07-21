@@ -1,9 +1,8 @@
 -- Active: 1688703098162@@127.0.0.1@5432@ilogo-absen
-CREATE TABLE users(
+CREATE TABLE departement(
     id SERIAL PRIMARY KEY,
-    name VARCHAR,
-    email VARCHAR,
-    password VARCHAR
+    nama VARCHAR,
+    user_manager_id INT
 );
 
 CREATE TABLE absen_masuk(
@@ -17,8 +16,8 @@ CREATE TABLE absen_masuk(
 );
 
 ALTER TABLE absen_masuk ADD FOREIGN KEY (user_id) REFERENCES users(id);
-ALTER TABLE cuti ADD FOREIGN KEY (user_id) REFERENCES users(id);
-ALTER TABLE cuti ADD sampai VARCHAR;
+ALTER TABLE departement ADD FOREIGN KEY (user_manager_id) REFERENCES users(id);
+ALTER TABLE users ADD departement_id INT;
 ALTER TABLE reimbusement ADD created_at TIMESTAMP;
 
 CREATE TABLE absen_pulang (
@@ -43,8 +42,6 @@ CREATE TABLE cuti (
     status VARCHAR,
     created_at TIMESTAMP
 );
-
-
 
 CREATE TABLE reimbusement (
     id SERIAL PRIMARY KEY,

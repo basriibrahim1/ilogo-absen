@@ -2,20 +2,67 @@ const pool = require('../config/db')
 
 
 const postCutiModels = (data) => {
-    const {user_id, kategori, alasan, keterangan, photo, dari, sampai, status} = data
+    const {user_id, kategori, alasan, keterangan, photo, dari, sampai, masuk} = data
     const date = new Date().toISOString()
 
     return (
-        pool.query(`INSERT INTO cuti(user_id, kategori, alasan, keterangan, photo, dari, sampai, status, created_at) VALUES(${user_id}, '${kategori}','${alasan}', '${keterangan}', '${photo}', '${dari}', '${sampai}', '${status}', '${date}')`)
+        pool.query(`INSERT INTO cuti(user_id, kategori, alasan, keterangan, photo, dari, sampai, created_at, masuk) VALUES(${user_id}, '${kategori}','${alasan}', '${keterangan}', '${photo}', '${dari}', '${sampai}', '${date}', '${masuk}')`)
     )
 }
 
+const getCutiIdModels = (id) => {
+    return pool.query(`
+        SELECT cuti.id AS cuti_id, users.id AS user_id, users.name AS username, role.role, kategori_cuti.nama AS kategori, cuti.alasan, cuti.keterangan, cuti.photo, cuti.dari, cuti.sampai, cuti.masuk, cuti.status, cuti.created_at, cuti.approval_hrd, cuti.approval_manager FROM cuti
+        JOIN users ON cuti.user_id = users.id 
+        JOIN kategori_cuti ON cuti.kategori_id = kategori_cuti.id
+        JOIN role ON users.role_id = role.id
+        WHERE cuti.id = ${id}
+    `)
+}
+
 const getCutiModels = (id) => {
-    return pool.query(`SELECT * FROM cuti WHERE cuti.user_id = ${id}`)
+    return pool.query(`
+        SELECT * FROM cuti 
+        JOIN users ON cuti.user_id = users.id 
+        JOIN kategori_cuti ON cuti.kategori_id = kategori_cuti.id
+        JOIN role ON users.role_id = role.id
+        WHERE cuti.user_id = ${id}
+    `)
+}
+
+const getCutiManagerModels = (id) => {
+    return pool.query(`
+        SELECT cuti.id AS cuti_id, users.id AS user_id, users.name AS username, role.role, kategori_cuti.nama AS kategori, cuti.alasan, cuti.keterangan, cuti.photo, cuti.dari, cuti.sampai, cuti.masuk, cuti.status, cuti.created_at, cuti.approval_hrd, cuti.approval_manager, departement.nama AS departement, departement.user_manager_id AS departement_manager FROM cuti 
+        JOIN users ON cuti.user_id = users.id 
+        JOIN kategori_cuti ON cuti.kategori_id = kategori_cuti.id
+        JOIN role ON users.role_id = role.id
+        JOIN departement ON users.departement_id = departement.id
+        WHERE departement.user_manager_id = ${id}
+    `)
+}
+
+const updateCutiHrdModels = (data) => {
+    const {hrd, id} = data
+
+    return pool.query(`
+        UPDATE cuti SET approval_hrd=${hrd} WHERE cuti.id = ${id}
+    `)
+}
+
+const updateCutiManagerModels = (data) => {
+    const {manager, id} = data
+
+    return pool.query(`
+        UPDATE cuti SET approval_hrd=${manager} WHERE cuti.id = ${id}
+    `)
 }
 
 
 module.exports = {
     postCutiModels,
-    getCutiModels
+    getCutiModels,
+    getCutiIdModels,
+    updateCutiManagerModels,
+    updateCutiHrdModels,
+    getCutiManagerModels
 }

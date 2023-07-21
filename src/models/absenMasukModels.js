@@ -2,9 +2,9 @@ const pool = require('../config/db')
 
 const postAbsenMasukModels = (data) => {
     const {user_id, photo, longitude, latitude, status} = data
-    const create = new Date().toISOString()
+    const date = new Date().toLocaleString()
     return (
-        pool.query(`INSERT INTO absen_masuk(user_id, photo, longitude, latitude, status, created_at) VALUES(${user_id}, '${photo}','${longitude}', '${latitude}', '${status}', '${create}')`)
+        pool.query(`INSERT INTO absen_masuk(user_id, photo, longitude, latitude, created_at, clock_in) VALUES(${user_id}, '${photo}','${longitude}', '${latitude}', '${date}', '${date}')`)
     )
 }
 
