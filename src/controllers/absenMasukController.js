@@ -22,6 +22,7 @@ const AbsenMasukController = {
             await postAbsenMasukModels(data)
             res.status(200).json({
                 message: "Berhasil Absen Masuk",
+                data: data
             });
         } catch (error) {
             res.status(400).json({

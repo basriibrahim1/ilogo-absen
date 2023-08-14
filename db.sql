@@ -16,10 +16,9 @@ CREATE TABLE absen_masuk(
 );
 
 ALTER TABLE absen_masuk ADD FOREIGN KEY (user_id) REFERENCES users(id);
-ALTER TABLE departement ADD FOREIGN KEY (user_manager_id) REFERENCES users(id);
-ALTER TABLE users ADD departement_id INT;
+ALTER TABLE cuti ADD FOREIGN KEY (kategori_id) REFERENCES kategori_cuti(id);
+ALTER TABLE cuti ADD is_approval INT DEFAULT 0;
 ALTER TABLE reimbusement ADD created_at TIMESTAMP;
-
 CREATE TABLE absen_pulang (
     id SERIAL PRIMARY KEY,
     user_id INT REFERENCES users(id),
@@ -57,3 +56,5 @@ CREATE TABLE reimbusement (
 
 
 SELECT * FROM absen_masuk WHERE absen_masuk.user_id = 1;
+
+SELECT * FROM cuti WHERE cuti.id = 15;
