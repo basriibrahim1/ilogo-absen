@@ -12,7 +12,7 @@ const getUserIdModels = (id) => {
 }
 
 const getUserEmailModels = (email) => {
-    return pool.query(`SELECT * FROM users JOIN role ON users.role_id = role.id WHERE users.email = '${email}'`)
+    return pool.query(`SELECT users.id AS user_id, users.name, users.email, users.password, users.role_id, users.departement_id, users.phone, users.gender, users.status, users.position, users.photo, users.birthday, role.role FROM users JOIN role ON users.role_id = role.id WHERE users.email = '${email}'`)
 }
 
 const userUpdateModels = (data, id) => {

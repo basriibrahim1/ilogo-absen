@@ -12,7 +12,7 @@ const postCutiModels = (data) => {
 
 const getCutiIdModels = (id) => {
     return pool.query(`
-        SELECT cuti.id AS cuti_id, users.id AS user_id, users.name AS username, role.role, kategori_cuti.nama AS kategori, cuti.alasan, cuti.keterangan, cuti.photo, cuti.dari, cuti.sampai, cuti.masuk, cuti.status, cuti.created_at, cuti.approval_hrd, cuti.approval_manager FROM cuti
+        SELECT cuti.id AS cuti_id, users.id AS user_id, users.name AS username, role.role, kategori_cuti.nama AS kategori, cuti.alasan, cuti.keterangan, cuti.photo, cuti.dari, cuti.sampai, cuti.masuk, cuti.status, cuti.created_at, cuti.approval_hrd, cuti.approval_head FROM cuti
         JOIN users ON cuti.user_id = users.id 
         JOIN kategori_cuti ON cuti.kategori_id = kategori_cuti.id
         JOIN role ON users.role_id = role.id
@@ -20,9 +20,10 @@ const getCutiIdModels = (id) => {
     `)
 }
 
-const getCutiModels = (id) => {
+const getCutiUserIdModels = (id) => {
     return pool.query(`
-        SELECT cuti.id AS cuti_id, users.id AS user_id, users.name AS username, role.role, kategori_cuti.nama AS kategori, cuti.alasan, cuti.keterangan, cuti.photo, cuti.dari, cuti.sampai, cuti.masuk, cuti.status, cuti.created_at, cuti.approval_hrd, cuti.approval_manager, departement.nama AS departement, departement.user_manager_id AS departement_manager FROM cuti 
+        SELECT cuti.id AS cuti_id, users.id AS users_id, users.name AS username, role.role, kategori_cuti.nama AS kategori, cuti.alasan, cuti.keterangan, cuti.photo, cuti.dari, cuti.sampai, cuti.masuk, cuti.status, cuti.created_at, cuti.approval_hrd, cuti.approval_head, cuti.is_approval, departement.nama AS departement, departement.user_manager_id AS departement_manager FROM cuti
+
         JOIN users ON cuti.user_id = users.id 
         JOIN kategori_cuti ON cuti.kategori_id = kategori_cuti.id
         JOIN role ON users.role_id = role.id
@@ -31,9 +32,19 @@ const getCutiModels = (id) => {
     `)
 }
 
+const getAllCutiModels = () => {
+    return pool.query(`
+        SELECT cuti.id AS cuti_id, users.id AS users_id, users.name AS username, role.role, kategori_cuti.nama AS kategori, cuti.alasan, cuti.keterangan, cuti.photo, cuti.dari, cuti.sampai, cuti.masuk, cuti.status, cuti.created_at, cuti.approval_hrd, cuti.approval_head, cuti.is_approval, departement.nama AS departement, departement.user_manager_id AS departement_manager FROM cuti
+        JOIN users ON cuti.user_id = users.id 
+        JOIN kategori_cuti ON cuti.kategori_id = kategori_cuti.id
+        JOIN role ON users.role_id = role.id
+        JOIN departement ON users.departement_id = departement.id`)
+}
+
+
 const getCutiManagerModels = (id) => {
     return pool.query(`
-        SELECT cuti.id AS cuti_id, users.id AS user_id, users.name AS username, role.role, kategori_cuti.nama AS kategori, cuti.alasan, cuti.keterangan, cuti.photo, cuti.dari, cuti.sampai, cuti.masuk, cuti.status, cuti.created_at, cuti.approval_hrd, cuti.approval_manager, departement.nama AS departement, departement.user_manager_id AS departement_manager FROM cuti 
+        SELECT cuti.id AS cuti_id, users.id AS users_id, users.name AS username, role.role, kategori_cuti.nama AS kategori, cuti.alasan, cuti.keterangan, cuti.photo, cuti.dari, cuti.sampai, cuti.masuk, cuti.status, cuti.created_at, cuti.approval_hrd, cuti.approval_head, cuti.is_approval, departement.nama AS departement, departement.user_manager_id AS departement_manager FROM cuti
         JOIN users ON cuti.user_id = users.id 
         JOIN kategori_cuti ON cuti.kategori_id = kategori_cuti.id
         JOIN role ON users.role_id = role.id
@@ -61,7 +72,8 @@ const updateCutiManagerModels = (data) => {
 
 module.exports = {
     postCutiModels,
-    getCutiModels,
+    getCutiUserIdModels,
+    getAllCutiModels,
     getCutiIdModels,
     updateCutiManagerModels,
     updateCutiHrdModels,

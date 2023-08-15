@@ -10,6 +10,10 @@ const postReimbusementModels = (data) => {
     )
 }
 
+const getAllReimbusement = () => {
+    return pool.query(`SELECT users.id AS user_id, reimbusement.id AS reimbusement_id, * FROM reimbusement JOIN users ON reimbusement.user_id = users.id`)
+}
+
 const getReimbusementModels = (id) => {
     return pool.query(`SELECT * FROM reimbusement WHERE reimbusement.user_id = ${id}`)
 }
@@ -17,5 +21,6 @@ const getReimbusementModels = (id) => {
 
 module.exports = {
     postReimbusementModels,
-    getReimbusementModels
+    getReimbusementModels,
+    getAllReimbusement
 }

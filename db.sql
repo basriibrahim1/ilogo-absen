@@ -57,4 +57,4 @@ CREATE TABLE reimbusement (
 
 SELECT * FROM absen_masuk WHERE absen_masuk.user_id = 1;
 
-SELECT * FROM cuti WHERE cuti.id = 15;
+SELECT * FROM cuti WHERE cuti.user_id = 1;

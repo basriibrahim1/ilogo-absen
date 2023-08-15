@@ -1,5 +1,5 @@
 const cloudinary = require('../config/cloudinary');
-const { postReimbusementModels, getReimbusementModels } = require("../models/reimbusementModels");
+const { postReimbusementModels, getAllReimbusement, getReimbusementModels } = require("../models/reimbusementModels");
 
 const reimbusementController = {
     postReimbusementController: async(req,res) => {
@@ -32,6 +32,26 @@ const reimbusementController = {
             res.status(400).json({
                 message: "Gagal mengisi reimbusement",
                 error: error
+            });
+        }
+    },
+
+    getAllReimbusement: async(req, res) => {
+        try {
+            const result = await getAllReimbusement()
+            if(result.rows.length <= 0){
+                res.status(400).json({
+                    message: `gagal mendapatkan id cuti`,
+                });
+            } else {
+                res.status(200).json({
+                    message: `berhasil mendapatkan id cuti`,
+                    data: result.rows
+                });
+            }
+        } catch (error) {
+            res.status(500).json({
+                message: `gagal mendapatkan data reimbusement`,
             });
         }
     },

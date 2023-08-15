@@ -7,5 +7,6 @@ router.get('/man/:id', cutiController.getCutiIdManagerController)
 router.get('/id/:id', cutiController.getCutiIdController)
 router.get('/:id', cutiController.getCutiController)
 router.post('/', upload.single('photo'), cutiController.postCutiController)
+router.get('/', cutiController.getAllCutiController)
 
 module.exports = router
