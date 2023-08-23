@@ -1,9 +1,15 @@
 -- Active: 1688703098162@@127.0.0.1@5432@ilogo-absen
-CREATE TABLE departement(
+CREATE TABLE document(
     id SERIAL PRIMARY KEY,
-    nama VARCHAR,
-    user_manager_id INT
+    user_id INT,
+    file_name VARCHAR,
+    size VARCHAR,
+    path_url VARCHAR,
+    document_models VARCHAR,
+    source_id INT,
+    created_at TIMESTAMP
 );
+
 
 CREATE TABLE absen_masuk(
     id SERIAL PRIMARY KEY,
@@ -15,10 +21,10 @@ CREATE TABLE absen_masuk(
     created_at TIMESTAMP
 );
 
-ALTER TABLE absen_masuk ADD FOREIGN KEY (user_id) REFERENCES users(id);
-ALTER TABLE cuti ADD FOREIGN KEY (kategori_id) REFERENCES kategori_cuti(id);
+ALTER TABLE notification_player ADD FOREIGN KEY (user_id) REFERENCES users(id); 
+ALTER TABLE document ADD FOREIGN KEY (user_id) REFERENCES users(id);
 ALTER TABLE cuti ADD is_approval INT DEFAULT 0;
-ALTER TABLE reimbusement ADD created_at TIMESTAMP;
+ALTER TABLE reimbusement ADD tanggal DATE;
 CREATE TABLE absen_pulang (
     id SERIAL PRIMARY KEY,
     user_id INT REFERENCES users(id),

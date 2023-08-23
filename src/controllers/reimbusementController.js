@@ -1,17 +1,16 @@
-const cloudinary = require('../config/cloudinary');
 const { postReimbusementModels, getAllReimbusement, getReimbusementModels } = require("../models/reimbusementModels");
 
 const reimbusementController = {
     postReimbusementController: async(req,res) => {
         try {
 
-            const imageUrl = await cloudinary.uploader.upload(req.file.path, {folder: 'reimbusement'})
+           
     
-            if (!imageUrl) {
-                res.status(401).json({
-                  message: "Failed to input data, please try again later",
-                });
-            }
+            // if (!imageUrl) {
+            //     res.status(401).json({
+            //       message: "Failed to input data, please try again later",
+            //     });
+            // }
 
             let data = {
                 user_id: Number(req.body.user_id), 
@@ -20,8 +19,7 @@ const reimbusementController = {
                 event: req.body.event,
                 tanggal: req.body.tanggal, 
                 nilai: req.body.nilai, 
-                catatan: req.body.catatan,
-                photo: imageUrl.secure_url,     
+                catatan: req.body.catatan
             }
 
             await postReimbusementModels(data)
@@ -52,6 +50,7 @@ const reimbusementController = {
         } catch (error) {
             res.status(500).json({
                 message: `gagal mendapatkan data reimbusement`,
+                error: error
             });
         }
     },

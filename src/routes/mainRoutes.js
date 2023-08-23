@@ -5,7 +5,9 @@ const auth = require('./authRoutes')
 const masuk = require('./absenMasukRoutes')
 const pulang = require('./absenPulangRoutes')
 const cuti = require('./cutiRoutes')
+const notifPlayer = require('./notificationPlayerRoutes')
 const reimbusement = require('./reimbusementRoutes')
+const document = require('./documentRoutes')
 
 router.use('/users', users)
 router.use('/login', auth)
@@ -13,5 +15,7 @@ router.use('/masuk', masuk)
 router.use('/pulang', pulang)
 router.use('/cuti', cuti)
 router.use('/reimbusement', reimbusement)
+router.use('/notification', notifPlayer)
+router.use('/document', document)
 
-module.exports = router
+module.exports = router 
