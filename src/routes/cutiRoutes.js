@@ -5,7 +5,7 @@ const router = express.Router()
 
 router.get('/man/:id', cutiController.getCutiIdManagerController)
 router.get('/id/:id', cutiController.getCutiIdController)
-router.get('/:id', cutiController.getCutiController)
+router.get('/:id', cutiController.getCutiUserIdController)
 router.post('/', upload.single('photo'), cutiController.postCutiController)
 router.get('/', cutiController.getAllCutiController)
 
